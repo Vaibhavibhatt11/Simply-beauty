@@ -1,0 +1,610 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simply Beauty | Luxury Salon Menu</title>
+  <style>
+    :root {
+      --black-1: #070707;
+      --black-2: #0d0d0d;
+      --black-3: #151515;
+      --gold-1: #f4dfad;
+      --gold-2: #dbbe73;
+      --gold-3: #a57b2a;
+      --rose-shadow: rgba(120, 54, 95, 0.26);
+      --text-main: #f4ecdb;
+      --text-soft: #d8c6a2;
+      --line: rgba(219, 190, 115, 0.36);
+      --line-soft: rgba(219, 190, 115, 0.16);
+      --card-radius: 22px;
+      --section-radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 8% -2%, rgba(247, 224, 162, 0.22), transparent 32%),
+        radial-gradient(circle at 92% 4%, rgba(173, 101, 146, 0.16), transparent 34%),
+        radial-gradient(circle at 50% 102%, rgba(219, 190, 115, 0.12), transparent 40%),
+        linear-gradient(165deg, #0f0d0a 0%, #080808 55%, #050505 100%);
+      color: var(--text-main);
+      font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.5;
+      padding: 16px;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+      position: relative;
+      isolation: isolate;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(125deg, rgba(10, 10, 10, 0.42), rgba(6, 6, 6, 0.58)),
+        url("bg-main.jpg") center / cover no-repeat;
+      opacity: 0.78;
+      filter: saturate(1.02) contrast(1.05);
+      transform: scale(1.04);
+      z-index: 0;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 12% 16%, rgba(247, 223, 166, 0.28), transparent 30%),
+        radial-gradient(circle at 86% 18%, rgba(186, 102, 152, 0.2), transparent 30%),
+        radial-gradient(circle at 78% 78%, rgba(219, 190, 115, 0.18), transparent 36%),
+        repeating-linear-gradient(125deg, rgba(255, 255, 255, 0.025) 0 1px, transparent 1px 14px);
+      mix-blend-mode: screen;
+      opacity: 0.5;
+      animation: ambience 18s ease-in-out infinite alternate;
+      z-index: 0;
+    }
+
+    .menu-shell {
+      width: min(100%, 840px);
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      border-radius: var(--card-radius);
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(12, 12, 12, 0.54), rgba(7, 7, 7, 0.62));
+      backdrop-filter: blur(6px) saturate(108%);
+      box-shadow: 0 26px 54px rgba(0, 0, 0, 0.62);
+      overflow: hidden;
+      animation: page-fade 850ms ease both;
+    }
+
+    .menu-bg-image {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background:
+        linear-gradient(180deg, rgba(8, 8, 8, 0.28), rgba(8, 8, 8, 0.46)),
+        radial-gradient(circle at 14% 18%, rgba(244, 223, 173, 0.23), transparent 38%),
+        radial-gradient(circle at 82% 16%, rgba(145, 63, 114, 0.2), transparent 38%),
+        url("bg-main.jpg") center / cover no-repeat;
+      opacity: 0.82;
+      filter: saturate(1.06) contrast(1.08) brightness(0.92);
+      animation: bg-float 20s ease-in-out infinite alternate;
+    }
+
+    .menu-bg-image::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(120deg, rgba(244, 223, 173, 0.14), transparent 44%, rgba(244, 223, 173, 0.08)),
+        radial-gradient(circle at 30% 110%, rgba(244, 223, 173, 0.12), transparent 38%);
+    }
+
+    .menu-shell::before,
+    .menu-shell::after {
+      content: "";
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      pointer-events: none;
+      border: 1px solid rgba(219, 190, 115, 0.28);
+    }
+
+    .menu-shell::before {
+      top: 12px;
+      left: 12px;
+      border-right: 0;
+      border-bottom: 0;
+      border-radius: 12px 0 0 0;
+    }
+
+    .menu-shell::after {
+      right: 12px;
+      bottom: 12px;
+      border-left: 0;
+      border-top: 0;
+      border-radius: 0 0 12px 0;
+    }
+
+    .inner {
+      display: grid;
+      gap: 16px;
+      padding: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero {
+      border-radius: var(--section-radius);
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(21, 21, 21, 0.74), rgba(12, 12, 12, 0.78));
+      overflow: hidden;
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.46);
+      animation: rise 750ms ease both;
+      animation-delay: 80ms;
+      display: grid;
+      backdrop-filter: blur(3px);
+    }
+
+    .hero-photo {
+      position: relative;
+      min-height: 230px;
+      overflow: hidden;
+    }
+
+    .hero-photo::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(9, 9, 9, 0.18), rgba(9, 9, 9, 0.68)),
+        radial-gradient(circle at 25% 18%, rgba(137, 58, 110, 0.38), transparent 45%);
+    }
+
+    .hero-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 48% 32%;
+      display: block;
+      filter: saturate(0.82) contrast(1.04) brightness(0.86);
+      transform: scale(1.03);
+    }
+
+    .hero-copy {
+      padding: 18px 14px 16px;
+      text-align: center;
+      background:
+        linear-gradient(180deg, rgba(17, 17, 17, 0.72), rgba(11, 11, 11, 0.76)),
+        linear-gradient(115deg, rgba(137, 58, 110, 0.12), transparent 52%);
+    }
+
+    .hero-label {
+      color: var(--gold-2);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-size: 0.68rem;
+      margin-bottom: 8px;
+    }
+
+    .hero h1,
+    .section h2,
+    .footer h3 {
+      font-family: "Didot", "Bodoni MT", "Palatino Linotype", "Times New Roman", serif;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      background: linear-gradient(115deg, var(--gold-1), var(--gold-2) 46%, var(--gold-3));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.1rem, 8.6vw, 3.4rem);
+      line-height: 1.04;
+      margin-bottom: 8px;
+    }
+
+    .hero .tagline {
+      color: var(--text-soft);
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+    }
+
+    .gold-divider {
+      height: 1px;
+      width: 76%;
+      margin: 14px auto 0;
+      background: linear-gradient(90deg, transparent, rgba(244, 223, 173, 0.9), transparent);
+    }
+
+    .section {
+      position: relative;
+      border-radius: var(--section-radius);
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(20, 20, 20, 0.72), rgba(12, 12, 12, 0.76));
+      padding: 14px 12px;
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.36);
+      animation: rise 760ms ease both;
+      backdrop-filter: blur(2px);
+    }
+
+    .section::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, rgba(244, 223, 173, 0.9), rgba(165, 123, 42, 0.34));
+      border-radius: 2px;
+    }
+
+    .section:nth-of-type(2) { animation-delay: 0.16s; }
+    .section:nth-of-type(3) { animation-delay: 0.24s; }
+    .section:nth-of-type(4) { animation-delay: 0.32s; }
+    .section:nth-of-type(5) { animation-delay: 0.4s; }
+
+    .section h2 {
+      font-size: 1.28rem;
+      margin-bottom: 12px;
+    }
+
+    .section-media {
+      margin: 0 0 12px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(244, 223, 173, 0.42);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.34);
+      position: relative;
+    }
+
+    .section-media::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(180deg, rgba(8, 8, 8, 0.08), rgba(8, 8, 8, 0.5));
+    }
+
+    .section-media img {
+      display: block;
+      width: 100%;
+      height: 136px;
+      object-fit: cover;
+      object-position: center;
+      filter: saturate(0.86) contrast(1.06) brightness(0.9);
+      transform: scale(1.01);
+    }
+
+    .service-list {
+      list-style: none;
+      display: grid;
+      gap: 0;
+    }
+
+    .service-list li {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: baseline;
+      padding: 7px 0;
+      border-top: 1px solid var(--line-soft);
+      font-size: 0.96rem;
+      letter-spacing: 0.01em;
+    }
+
+    .service-list li:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .service-list .name {
+      color: #f4edde;
+      padding-right: 8px;
+    }
+
+    .service-list .price {
+      color: #ffe09a;
+      font-weight: 650;
+      white-space: nowrap;
+    }
+
+    .highlight {
+      border: 1px solid rgba(244, 223, 173, 0.62);
+      background:
+        radial-gradient(circle at 86% 9%, rgba(219, 190, 115, 0.2), transparent 40%),
+        linear-gradient(180deg, rgba(30, 25, 18, 0.8), rgba(14, 13, 11, 0.84));
+      box-shadow:
+        0 0 0 1px rgba(219, 190, 115, 0.18),
+        0 0 32px rgba(219, 190, 115, 0.22),
+        inset 0 0 26px rgba(219, 190, 115, 0.08),
+        0 10px 22px rgba(0, 0, 0, 0.4);
+      padding: 18px 13px;
+    }
+
+    .highlight h2 {
+      font-size: 1.46rem;
+      margin-bottom: 14px;
+    }
+
+    .highlight .service-list li {
+      border-top-color: rgba(219, 190, 115, 0.22);
+      font-size: 0.99rem;
+    }
+
+    .highlight .section-media img {
+      height: 148px;
+      object-position: center 35%;
+    }
+
+    .footer {
+      border: 1px solid var(--line-soft);
+      border-radius: var(--section-radius);
+      background: linear-gradient(180deg, rgba(18, 18, 18, 0.74), rgba(10, 10, 10, 0.8));
+      text-align: center;
+      display: grid;
+      gap: 5px;
+      padding: 14px 12px;
+      color: var(--text-soft);
+      animation: rise 760ms ease both;
+      animation-delay: 0.46s;
+      backdrop-filter: blur(2px);
+    }
+
+    .footer h3 {
+      font-size: 1.13rem;
+      margin-bottom: 2px;
+    }
+
+    .footer p {
+      font-size: 0.92rem;
+      letter-spacing: 0.01em;
+    }
+
+    @keyframes page-fade {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes ambience {
+      from {
+        opacity: 0.38;
+        transform: scale(1) translateY(0);
+      }
+      to {
+        opacity: 0.56;
+        transform: scale(1.04) translateY(-8px);
+      }
+    }
+
+    @keyframes bg-float {
+      from {
+        transform: scale(1.02) translateY(0);
+      }
+      to {
+        transform: scale(1.07) translateY(-10px);
+      }
+    }
+
+    @media (min-width: 740px) {
+      body {
+        padding: 26px;
+      }
+
+      .inner {
+        padding: 20px;
+        gap: 18px;
+      }
+
+      .hero {
+        grid-template-columns: 42% 58%;
+        min-height: 280px;
+      }
+
+      .hero-copy {
+        display: grid;
+        align-content: center;
+        padding: 20px 18px;
+      }
+
+      .hero .tagline {
+        font-size: 0.86rem;
+      }
+
+      .section {
+        padding: 17px 15px;
+      }
+
+      .section-media img {
+        height: 165px;
+      }
+
+      .service-list li {
+        font-size: 0.995rem;
+        padding: 8px 0;
+      }
+
+      .highlight {
+        padding: 22px 17px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="menu-shell">
+    <div class="menu-bg-image" aria-hidden="true"></div>
+    <div class="inner">
+      <header class="hero">
+        <figure class="hero-photo">
+          <img
+            src="https://images.pexels.com/photos/7048497/pexels-photo-7048497.jpeg?auto=compress&cs=tinysrgb&w=1200"
+            alt="Front beauty portrait"
+            width="1200"
+            height="760"
+            loading="eager"
+            decoding="async"
+          />
+        </figure>
+        <div class="hero-copy">
+          <p class="hero-label">Luxury Salon Menu</p>
+          <h1>Simply Beauty</h1>
+          <p class="tagline">Threading &bull; Waxing &bull; Eyelashes &bull; Facial</p>
+          <div class="gold-divider" aria-hidden="true"></div>
+        </div>
+      </header>
+
+      <section class="section" aria-labelledby="threading-waxing">
+        <h2 id="threading-waxing">Threading &amp; Waxing</h2>
+        <figure class="section-media">
+          <img
+            src="https://images.pexels.com/photos/5475901/pexels-photo-5475901.jpeg?auto=compress&cs=tinysrgb&w=1200"
+            alt="Eyebrow shaping beauty service"
+            width="1200"
+            height="760"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+        <ul class="service-list">
+          <li><span class="name">Eyebrows</span><span class="price">$9</span></li>
+          <li><span class="name">Men Eyebrows</span><span class="price">$9</span></li>
+          <li><span class="name">Eyebrow Wax Women/Men</span><span class="price">$12</span></li>
+          <li><span class="name">Upper Lips</span><span class="price">$6</span></li>
+          <li><span class="name">Lower Lips</span><span class="price">$2</span></li>
+          <li><span class="name">Chin</span><span class="price">$7</span></li>
+          <li><span class="name">Neck</span><span class="price">$10</span></li>
+          <li><span class="name">Forehead</span><span class="price">$6</span></li>
+          <li><span class="name">Side Burn</span><span class="price">$7</span></li>
+          <li><span class="name">Cheeks</span><span class="price">$5</span></li>
+          <li><span class="name">Full Face (No Neck)</span><span class="price">$35</span></li>
+          <li><span class="name">Natural Eyelashes</span><span class="price">$25</span></li>
+          <li><span class="name">Full Eyelashes</span><span class="price">$30</span></li>
+          <li><span class="name">Touch Ups</span><span class="price">$5+</span></li>
+          <li><span class="name">Eyebrow Tinting</span><span class="price">$20</span></li>
+        </ul>
+      </section>
+
+      <section class="section" aria-labelledby="body-waxing">
+        <h2 id="body-waxing">Body Waxing</h2>
+        <figure class="section-media">
+          <img
+            src="https://images.pexels.com/photos/6763618/pexels-photo-6763618.jpeg?auto=compress&cs=tinysrgb&w=1200"
+            alt="Body waxing treatment"
+            width="1200"
+            height="760"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+        <ul class="service-list">
+          <li><span class="name">Half Arm</span><span class="price">$25</span></li>
+          <li><span class="name">Full Arm</span><span class="price">$35</span></li>
+          <li><span class="name">Half Legs</span><span class="price">$30</span></li>
+          <li><span class="name">Full Legs</span><span class="price">$45</span></li>
+          <li><span class="name">Under Arm</span><span class="price">$15</span></li>
+          <li><span class="name">Bikini Line</span><span class="price">$45</span></li>
+          <li><span class="name">Brazilian Bikini</span><span class="price">$45</span></li>
+          <li><span class="name">Back</span><span class="price">$35+</span></li>
+          <li><span class="name">Full Body Wax</span><span class="price">$150</span></li>
+        </ul>
+      </section>
+
+      <section class="section highlight" aria-labelledby="facial-treatments">
+        <h2 id="facial-treatments">Facial Treatments</h2>
+        <figure class="section-media">
+          <img
+            src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1200&q=80"
+            alt="Luxury facial mask treatment"
+            width="1200"
+            height="760"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+        <ul class="service-list">
+          <li><span class="name">Flash Facial with LED Face Mask</span><span class="price">$45</span></li>
+          <li><span class="name">Deluxe Facial</span><span class="price">$60</span></li>
+          <li><span class="name">Acne Facial</span><span class="price">$50</span></li>
+          <li><span class="name">Anti-Aging Facial</span><span class="price">$60</span></li>
+          <li><span class="name">Korean Glass Skin Facial</span><span class="price">$85</span></li>
+          <li><span class="name">Herbal Facial</span><span class="price">$50</span></li>
+          <li><span class="name">Hydra Facial</span><span class="price">$95</span></li>
+          <li><span class="name">Back Facial</span><span class="price">$65</span></li>
+        </ul>
+      </section>
+
+      <section class="section" aria-labelledby="special-offers">
+        <h2 id="special-offers">Special Offers</h2>
+        <figure class="section-media">
+          <img
+            src="https://images.pexels.com/photos/9045564/pexels-photo-9045564.jpeg?auto=compress&cs=tinysrgb&w=1200"
+            alt="Beauty makeup look for special offers"
+            width="1200"
+            height="760"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+        <ul class="service-list">
+          <li><span class="name">Eyebrows &amp; Lip</span><span class="price">$14 / $16</span></li>
+          <li><span class="name">Eyebrows, Lip &amp; Chin</span><span class="price">$18 / $20</span></li>
+          <li><span class="name">Eyebrows &amp; Eyelash</span><span class="price">$30 / $35</span></li>
+          <li><span class="name">Eyebrows &amp; Tinting</span><span class="price">$25</span></li>
+          <li><span class="name">Eyebrows, Lashes &amp; Tinting</span><span class="price">$40 / $45</span></li>
+          <li><span class="name">Full Arms &amp; Full Legs Waxing</span><span class="price">$75</span></li>
+          <li><span class="name">Full Arms &amp; Underarms Waxing</span><span class="price">$45</span></li>
+        </ul>
+      </section>
+
+      <footer class="footer" aria-label="Salon Contact Information">
+        <h3>Contact: 630-849-4487</h3>
+        <p>Gift Cards Available</p>
+        <p>We accept Visa / Mastercard</p>
+        <p>Mon - Sat: 10am - 7pm</p>
+        <p>Sun: 11am - 5pm</p>
+      </footer>
+    </div>
+  </main>
+</body>
+</html>
