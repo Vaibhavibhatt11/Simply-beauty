@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Simply Beauty | Luxury Salon Menu</title>
-  <link rel="preload" as="image" href="top-hero.jpg" />
+  <link rel="preload" as="image" href="brand-mark.jpg" />
   <style>
     :root {
       --black-1: #070707;
@@ -105,21 +105,14 @@
       overflow: hidden;
     }
 
-    .hero-photo::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(180deg, rgba(9, 9, 9, 0.08), rgba(9, 9, 9, 0.5)),
-        radial-gradient(circle at 25% 18%, rgba(137, 58, 110, 0.2), transparent 45%);
-    }
-
     .hero-photo img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      object-position: center 36%;
+      object-fit: contain;
+      object-position: center;
       display: block;
+      background: linear-gradient(180deg, rgba(7, 7, 7, 0.96), rgba(4, 4, 4, 0.96));
+      padding: 8px;
     }
 
     .hero-copy {
@@ -128,23 +121,6 @@
       background:
         linear-gradient(180deg, rgba(17, 17, 17, 0.72), rgba(11, 11, 11, 0.76)),
         linear-gradient(115deg, rgba(137, 58, 110, 0.12), transparent 52%);
-    }
-
-    .brand-mark-wrap {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 10px;
-    }
-
-    .brand-mark {
-      width: 96px;
-      height: 132px;
-      object-fit: contain;
-      object-position: center;
-      border-radius: 10px;
-      border: 1px solid rgba(244, 223, 173, 0.38);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
-      background: rgba(8, 8, 8, 0.85);
     }
 
     .hero-label {
@@ -344,11 +320,6 @@
         padding: 20px 18px;
       }
 
-      .brand-mark {
-        width: 112px;
-        height: 154px;
-      }
-
       .hero .tagline {
         font-size: 0.86rem;
       }
@@ -390,20 +361,12 @@
       }
 
       .hero-photo img {
-        object-position: center 34%;
+        object-position: center;
+        padding: 6px;
       }
 
       .hero-copy {
         padding: 14px 10px 12px;
-      }
-
-      .brand-mark-wrap {
-        margin-bottom: 8px;
-      }
-
-      .brand-mark {
-        width: 74px;
-        height: 104px;
       }
 
       .hero .tagline {
@@ -444,9 +407,8 @@
       <header class="hero">
         <figure class="hero-photo">
           <img
-            src="top-hero.jpg"
-            onerror="this.onerror=null;this.src='hero-front.jpg';"
-            alt="Front beauty portrait"
+            src="brand-mark.jpg"
+            alt="Salon art image"
             width="1200"
             height="760"
             loading="eager"
@@ -454,18 +416,6 @@
           />
         </figure>
         <div class="hero-copy">
-          <div class="brand-mark-wrap">
-            <img
-              class="brand-mark"
-              src="brand-mark.jpg"
-              onerror="this.closest('.brand-mark-wrap').style.display='none';"
-              alt="Salon brand art"
-              width="220"
-              height="220"
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
           <p class="hero-label">Luxury Salon Menu</p>
           <h1>Simply Beauty</h1>
           <p class="tagline">Threading &bull; Waxing &bull; Eyelashes &bull; Facial</p>
